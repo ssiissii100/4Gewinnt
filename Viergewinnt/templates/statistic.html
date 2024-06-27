@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistic</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/statistic.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('game') }}">Game</a>
+            <a class="nav-item nav-link active" href="{{ url_for('statistic') }}">Statistic<span class="sr-only">(current)</span></a>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container statistic-container">
+        <div class="text-center statistic-title">
+            <h1>Statistic</h1>
+        </div>
+        <div class="statistic-section">
+            <div class="row">
+                <div class="text-center col-4">
+                    <h4 id="p1-wins">P1 Wins: 0</h4>
+                </div>
+                <div class="text-center col-4">
+                    <h4 id="draws">Draw: 0</h4>
+                </div>
+                <div class="text-center col-4">
+                    <h4 id="p2-wins">P2 Wins: 0</h4>
+                </div>
+            </div>
+        </div>
+        <div class="statistic-section">
+            <div class="row">
+                <div class="col-6">
+                    <h4 id="longest-game">Längstes Spiel: 0:00 Min</h4>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <h4 id="average-game">Durchschnittliche Länge: 0:00 Min</h4>
+                </div>
+            </div>
+        </div>
+        <table class="table statistic-section">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Gewinner</th>
+                <th scope="col">Zeit</th>
+              </tr>
+            </thead>
+            <tbody id="statistics-table-body">
+            </tbody>
+        </table>
+        <div class="buttons statistic-section">
+            <button type="button" class="btn btn-secondary" onclick="resetStats()">Reset</button>
+            <a class="btn btn-secondary" href="{{ url_for('game') }}">Play</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='JS/statistic.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

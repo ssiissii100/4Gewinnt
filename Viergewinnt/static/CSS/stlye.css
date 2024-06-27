@@ -1,0 +1,18 @@
+.rule-container {
+    margin-top: 50px;
+}
+.rule-title {
+    margin-bottom: 30px;
+}
+.rule-section {
+    margin-bottom: 20px;
+}
+.rule-section h4 {
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

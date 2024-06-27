@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="{{ url_for('game') }}">Game</a>
+            <a class="nav-item nav-link" href="{{ url_for('statistic') }}">Statistic</a>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container rule-container">
+        <div class="text-center rule-title">
+            <h1>4 Gewinnt – Regelzusammenfassung</h1>
+        </div>
+        <div class="row rule-section">
+            <div class="col-md-4">
+                <h4>Spielvorbereitung</h4>
+                <ul>
+                    <li>4 Gewinnt wird von zwei Spielern gespielt.</li>
+                    <li>Jeder Spieler wählt eine Farbe.</li>
+                    <li>Das Spielbrett besteht aus sieben Spalten und sechs Reihen.</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Spielablauf</h4>
+                <ul>
+                    <li>Die Spieler ziehen abwechselnd.</li>
+                    <li>Jeder Spieler lässt einen seiner Spielsteine in eine der Spalten des Gitters fallen.</li>
+                    <li>Der Stein fällt immer so weit wie möglich nach unten.</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Ziel des Spiels</h4>
+                <ul>
+                    <li>Ziel ist es, als erster Spieler eine ununterbrochene Linie von vier eigenen Steinen zu bilden.</li>
+                    <li>Diese Linie kann waagerecht, senkrecht oder diagonal verlaufen.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row rule-section">
+            <div class="col-md-12">
+                <h4>Spielende</h4>
+                <ul>
+                    <li>Das Spiel endet, sobald ein Spieler vier Steine in einer Linie hat.</li>
+                    <li>Sollte das Spielfeld voll sein und kein Spieler hat vier Steine in einer Linie, endet das Spiel unentschieden.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="button-container">
+            <a class="btn btn-primary" href="{{ url_for('game') }}">Spiel starten</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
