@@ -1,35 +1,35 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-.game-body{
+.game-body {
     display: grid;
     place-items: center;
 }
 
-h1{
+h1 {
     text-align: center;
     margin: 20px 0 20px 0;
 }
-h2{
+h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.board{
+.board {
     display: grid;
-    grid-template-columns: repeat(7,1fr);
+    grid-template-columns: repeat(7, 1fr);
     border: 2px solid black;
     width: 630px;
     background-color: rgb(74, 74, 198);
 }
 
-ul{
+ul {
     display: grid;
     place-items: center;
 }
 
-ul p{
+ul p {
     margin: 5px;
     width: 75px;
     height: 75px;
@@ -38,34 +38,34 @@ ul p{
     background-color: white;
 }
 
-ul:hover{
+ul:hover {
     cursor: pointer;
     background-color: rgb(98, 136, 238);
 }
 
-@media(max-width:700px){
-    .board{
+@media(max-width: 700px) {
+    .board {
         width: 500px;
     }
-    ul p{
+    ul p {
         width: 55px;
         height: 55px;
     }
 }
-@media(max-width:520px){
-    .board{
+@media(max-width: 520px) {
+    .board {
         width: 400px;
     }
-    ul p{
+    ul p {
         width: 40px;
         height: 40px;
     }
 }
-@media(max-width:420px){
-    .board{
+@media(max-width: 420px) {
+    .board {
         width: 320px;
     }
-    ul p{
+    ul p {
         width: 30px;
         height: 30px;
     }

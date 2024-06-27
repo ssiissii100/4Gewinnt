@@ -1,32 +1,50 @@
 let currentPlayer = 1;
-let playerColors = {1: null, 2: null};
+let playerColors = {1: 'red', 2: 'yellow'};
 let startTime;
+let boardState = Array(42).fill(null);
 
 function startGame() {
-    playerColors[1] = 'red'; // Assuming red for player 1
-    playerColors[2] = 'yellow'; // Assuming yellow for player 2
     document.getElementById('whosturn').textContent = "Spieler 1's Zug";
     
     // Initialize board
     const board = document.getElementById('board');
     board.innerHTML = '';
+    boardState.fill(null); // Reset board state
     for (let i = 0; i < 42; i++) {
         const cell = document.createElement('ul');
         const cellContent = document.createElement('p');
         cellContent.style.backgroundColor = 'white'; // Initial color for the cell
         cell.appendChild(cellContent);
-        cell.addEventListener('click', () => makeMove(i, cellContent));
+        cell.dataset.index = i;
+        cell.addEventListener('click', (event) => makeMove(event, i));
         board.appendChild(cell);
+        console.log(`CellIndex: ${cell.dataset.index}`);
     }
-    startTime = new Date();
+    updateGameState(); // Immediately update game state
+    setInterval(updateGameState, 1000); // Fetch game state every 1 second
 }
 
-function makeMove(index, cellContent) {
-    if (cellContent.style.backgroundColor === '' || cellContent.style.backgroundColor === 'white') {
+function makeMove(event, index) {
+    const column = index % 7;
+    let cellIndex;
+
+    // Find the lowest available cell in the column
+    for (let row = 5; row >= 0; row--) {
+        cellIndex = row * 7 + column;
+        if (boardState[cellIndex] === null) {
+            break;
+        }
+    }
+
+    console.log(`Column: ${column}, CellIndex: ${cellIndex}, BoardState: ${boardState[cellIndex]}`);
+
+    if (boardState[cellIndex] === null) {
+        const cellContent = document.querySelector(`[data-index='${cellIndex}'] p`);
         cellContent.style.backgroundColor = playerColors[currentPlayer];
-        
+        boardState[cellIndex] = currentPlayer;
+
         // Save the move to the database
-        fetch(`/api/game/move/${index}`, {
+        fetch(`/api/game/move/${cellIndex}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({player_id: currentPlayer})
@@ -48,6 +66,33 @@ function makeMove(index, cellContent) {
     }
 }
 
+function updateGameState() {
+    fetch('/api/game/state')
+        .then(response => response.json())
+        .then(data => {
+            boardState = data.boardState;
+            currentPlayer = data.currentPlayer;
+            updateBoard();
+            document.getElementById('whosturn').textContent = `Spieler ${currentPlayer}'s Zug`;
+        })
+        .catch(error => {
+            console.error('Error fetching game state:', error);
+        });
+}
+
+function updateBoard() {
+    for (let i = 1; i < 42; i++) {
+        const cellContent = document.querySelector(`[data-index='${i}'] p`);
+        if (boardState[i] === 1) {
+            cellContent.style.backgroundColor = playerColors[1];
+        } else if (boardState[i] === 2) {
+            cellContent.style.backgroundColor = playerColors[2];
+        } else {
+            cellContent.style.backgroundColor = 'white';
+        }
+    }
+}
+
 function resetGame() {
     fetch('/api/game/reset', {
         method: 'POST'
@@ -63,11 +108,7 @@ function resetGame() {
       });
 }
 
-function calculatePlaytime() {
-    const endTime = new Date();
-    const duration = new Date(endTime - startTime);
-    return `${duration.getUTCHours()}:${duration.getUTCMinutes()}:${duration.getUTCSeconds()}`;
-}
+
 
 // Ensure the start and reset buttons trigger the appropriate functions
 document.getElementById('startGame').addEventListener('click', startGame);

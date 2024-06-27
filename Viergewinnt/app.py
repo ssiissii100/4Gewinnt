@@ -35,7 +35,6 @@ def get_colors():
     conn.close()
     return jsonify(colors)
 
-
 @app.route('/api/game/move/<int:field_id>', methods=['POST'])
 def make_move(field_id):
     try:
@@ -76,6 +75,22 @@ def reset_game():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/game/state', methods=['GET'])
+def get_game_state():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT PlayerFK FROM activgame ORDER BY ID")
+    board_state = cursor.fetchall()
+    cursor.execute("SELECT currentPlayer FROM gamestate LIMIT 1")
+    current_player = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    
+    state = {
+        'boardState': [cell['PlayerFK'] for cell in board_state],
+        'currentPlayer': current_player['currentPlayer']
+    }
+    return jsonify(state)
 
 @app.route('/api/statistics', methods=['GET'])
 def get_statistics():
